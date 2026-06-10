@@ -1398,7 +1398,6 @@ namespace Audio_Compressor
             double saving = (1.0 - (double)compressedSizeBytes / originalSizeBytes) * 100;
             TimeSpan duration = DateTime.Now - compressionStartTime;
 
-            // استخدام المتغير المحفوظ لتجنب الوصول إلى قارئ قد تم تعطيله
             int originalBitRate = compressionOriginalBitRate;
 
             string qualityStr = qualityCalculated ?
