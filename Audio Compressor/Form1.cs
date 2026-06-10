@@ -36,7 +36,6 @@ namespace Audio_Compressor
         private float mse, rmse, snr, psnr;
         private bool qualityCalculated = false;
 
-        // متغير لحفظ معدل البت الأصلي لتجنب استثناء تعطيل القارئ
         private int compressionOriginalBitRate;
 
         private Panel mainPanel, playerPanel, infoPanel, dropPanel, compressedPlayerPanel;
@@ -532,7 +531,7 @@ namespace Audio_Compressor
             ChartArea ca1 = new ChartArea() { BackColor = Color.FromArgb(30, 30, 30) };
             ca1.AxisX.LabelStyle.ForeColor = Color.White;
             ca1.AxisY.LabelStyle.ForeColor = Color.White;
-            ca1.AxisX.Title = "Progress (%)";          // تم تعديل التسمية
+            ca1.AxisX.Title = "Progress (%)";
             ca1.AxisY.Title = "Ratio";
             ca1.AxisX.TitleForeColor = Color.White;
             ca1.AxisY.TitleForeColor = Color.White;
@@ -551,7 +550,7 @@ namespace Audio_Compressor
             ChartArea ca2 = new ChartArea() { BackColor = Color.FromArgb(30, 30, 30) };
             ca2.AxisX.LabelStyle.ForeColor = Color.White;
             ca2.AxisY.LabelStyle.ForeColor = Color.White;
-            ca2.AxisX.Title = "Progress (%)";          // تم تعديل التسمية
+            ca2.AxisX.Title = "Progress (%)";          
             ca2.AxisY.Title = "Samples/s";
             ca2.AxisX.TitleForeColor = Color.White;
             ca2.AxisY.TitleForeColor = Color.White;
@@ -1146,7 +1145,7 @@ namespace Audio_Compressor
                 btnCompPause.Enabled = false;
                 btnCompStop.Enabled = false;
                 btnSaveDecompWav.Enabled = true;
-                btnDecompressOnly.Enabled = true;   // تأكيد التفعيل
+                btnDecompressOnly.Enabled = true;
                 seekBarComp.Maximum = (int)((double)totalCompSamples / currentCompressedAudio.OriginalSampleRate * 1000);
                 seekBarComp.Value = 0;
                 seekBarComp.Enabled = true;
@@ -1174,7 +1173,6 @@ namespace Audio_Compressor
             audioFileReader = new AudioFileReader(currentFilePath);
             originalSamples = ReadAllMonoSamples(audioFileReader);
 
-            // تحديث معلومات الملف على الواجهة بعد إعادة التعيين
             UpdateFileInfo(currentFilePath);
 
             ResetCompressionUI();
@@ -1249,7 +1247,7 @@ namespace Audio_Compressor
                         btnCompPause.Enabled = false;
                         btnCompStop.Enabled = false;
                         btnSaveDecompWav.Enabled = true;
-                        btnDecompressOnly.Enabled = true;   // تمت الإضافة: تفعيل زر Decompress
+                        btnDecompressOnly.Enabled = true; 
                         seekBarComp.Maximum = (int)((double)totalCompSamples / loaded.OriginalSampleRate * 1000);
                         seekBarComp.Value = 0;
                         seekBarComp.Enabled = true;
@@ -1401,7 +1399,6 @@ namespace Audio_Compressor
             double saving = (1.0 - (double)compressedSizeBytes / originalSizeBytes) * 100;
             TimeSpan duration = DateTime.Now - compressionStartTime;
 
-            // استخدام المتغير المحفوظ لتجنب الوصول إلى قارئ قد تم تعطيله
             int originalBitRate = compressionOriginalBitRate;
 
             string qualityStr = qualityCalculated ?
