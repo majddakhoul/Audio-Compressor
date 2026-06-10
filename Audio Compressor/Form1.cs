@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -369,7 +369,7 @@ namespace Audio_Compressor
             };
             mainPanel.Controls.Add(lblStatus);
 
-            // Compression group box (enhanced layout)
+            // Compression group box
             grpCompression = new GroupBox()
             {
                 Text = "Compression",
@@ -1108,7 +1108,6 @@ namespace Audio_Compressor
         {
             if (!fileLoaded || originalSamples == null || isCompressing) return;
 
-            // حفظ معدل البت الأصلي لتجنب استثناء القارئ المحتمل
             compressionOriginalBitRate = audioFileReader.WaveFormat.AverageBytesPerSecond * 8;
 
             currentCompSettings = new CompressionSettings
@@ -1247,7 +1246,7 @@ namespace Audio_Compressor
                         btnCompPause.Enabled = false;
                         btnCompStop.Enabled = false;
                         btnSaveDecompWav.Enabled = true;
-                        btnDecompressOnly.Enabled = true; 
+                        btnDecompressOnly.Enabled = true;
                         seekBarComp.Maximum = (int)((double)totalCompSamples / loaded.OriginalSampleRate * 1000);
                         seekBarComp.Value = 0;
                         seekBarComp.Enabled = true;
@@ -1399,6 +1398,7 @@ namespace Audio_Compressor
             double saving = (1.0 - (double)compressedSizeBytes / originalSizeBytes) * 100;
             TimeSpan duration = DateTime.Now - compressionStartTime;
 
+            // استخدام المتغير المحفوظ لتجنب الوصول إلى قارئ قد تم تعطيله
             int originalBitRate = compressionOriginalBitRate;
 
             string qualityStr = qualityCalculated ?
